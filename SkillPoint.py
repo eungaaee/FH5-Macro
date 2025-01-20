@@ -4,7 +4,7 @@ import time
 
 # Wait for F1 key to start
 print("Press F1 to start the script.")
-keyboard.wait('F1')
+keyboard.wait("F1")
 print("Script started.")
 
 quit = False
@@ -13,13 +13,13 @@ while True:
         break
 
     while True:
-        if keyboard.is_pressed('F2'):
+        if keyboard.is_pressed("F2"):
             quit = True
             break
         try:
             if pyautogui.locateOnScreen("./Images/StartRaceEvent.png", grayscale=True, confidence=0.75) is not None:
-                pyautogui.press('left')
-                pyautogui.press('up')
+                pyautogui.press("left")
+                pyautogui.press("up")
                 pyautogui.press("enter")
                 break
         except pyautogui.ImageNotFoundException:
@@ -30,7 +30,7 @@ while True:
     pyautogui.keyDown('w')
 
     while True:
-        if keyboard.is_pressed('F2'):
+        if keyboard.is_pressed("F2"):
             quit = True
             break
         try:
@@ -38,7 +38,7 @@ while True:
                 pyautogui.keyUp('w')
                 pyautogui.press('x') # restart event
                 time.sleep(0.5)
-                pyautogui.press('enter') # confirm restart
+                pyautogui.press("enter") # confirm restart
                 break
         except pyautogui.ImageNotFoundException:
             continue
