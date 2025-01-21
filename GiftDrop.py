@@ -36,6 +36,7 @@ def Macro(interrupt_event):
 
         if not found:
             print(f"A total of {count} cars have been gifted.")
+            pyautogui.press("esc")
             interrupt_event.set()
             break
 

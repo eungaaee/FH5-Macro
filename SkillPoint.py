@@ -19,14 +19,18 @@ def Macro(interrupt_event, loop=100): # 10sp * 100 = 1000sp
 
         while True:
             try:
-                pyautogui.locateOnScreen("./Images/StartRaceEvent.png", grayscale=True, confidence=0.75)
-                pyautogui.press("left")
+                startraceevent_location = pyautogui.locateOnScreen("./Images/StartRaceEvent.png", grayscale=True, confidence=0.75)
+                pyautogui.moveTo(startraceevent_location)
+                pyautogui.mouseDown()
+                pyautogui.mouseUp()
+                """ pyautogui.press("left")
                 pyautogui.press("up")
-                pyautogui.press("enter")
+                pyautogui.press("enter") """
                 break
             except pyautogui.ImageNotFoundException:
                 continue
 
+        time.sleep(2)
         pyautogui.keyDown('w')
 
         while True:

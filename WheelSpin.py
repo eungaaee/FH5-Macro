@@ -15,7 +15,6 @@ def Macro(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
                 current_loop += 1
             else:
                 print("Completed.")
-                interrupt_event.set()
                 break
 
         # open Car Collection
@@ -180,6 +179,8 @@ def Macro(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
 
         if is_first:
             is_first = False
+
+    interrupt_event.set()
 
 def Stopper(interrupt_event):
     while interrupt_event.is_set() == False:
