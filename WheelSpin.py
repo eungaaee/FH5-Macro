@@ -21,18 +21,17 @@ def Macro(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
         # open Car Collection
         while True:
             try:
-                car_collection_location = pyautogui.locateOnScreen("./Images/CarCollection.png", grayscale=True, confidence=0.75)
-                if car_collection_location is not None:
-                    """ # .click() is not working, so use .moveTo() and .press() instead. or just use .moveTo() and .mouseDown() and .mouseUp()
-                    # -> both methods are not stable. don't know why. just gonna use the keyboard.
-                    time.sleep(0.5)
-                    pyautogui.moveTo(car_collection_location)
-                    time.sleep(0.5)
-                    pyautogui.press("enter") """
-                    time.sleep(0.5)
-                    pyautogui.press("right", presses=2, interval=0.05)
-                    pyautogui.press("enter")
-                    break
+                pyautogui.locateOnScreen("./Images/CarCollection.png", grayscale=True, confidence=0.75)
+                """ # .click() is not working, so use .moveTo() and .press() instead. or just use .moveTo() and .mouseDown() and .mouseUp()
+                # -> both methods are not stable. don't know why. just gonna use the keyboard.
+                time.sleep(0.5)
+                pyautogui.moveTo(car_collection_location)
+                time.sleep(0.5)
+                pyautogui.press("enter") """
+                time.sleep(0.5)
+                pyautogui.press("right", presses=2, interval=0.05)
+                pyautogui.press("enter")
+                break
             except pyautogui.ImageNotFoundException:
                 continue
 
@@ -85,8 +84,8 @@ def Macro(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
         # validate that the Peel Trident is selected
         while True:
             try:
-                if pyautogui.locateOnScreen("./Images/PeelTrident.png", grayscale=True, confidence=0.9) is not None:
-                    break
+                pyautogui.locateOnScreen("./Images/PeelTrident.png", grayscale=True, confidence=0.9)
+                break
             except pyautogui.ImageNotFoundException:
                 continue
 
@@ -99,10 +98,10 @@ def Macro(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
         # wait for the Forza Vista to load
         while True:
             try:
-                if pyautogui.locateOnScreen("./Images/Esc.png", grayscale=True, confidence=0.75) is not None:
-                    time.sleep(1)
-                    pyautogui.press("esc") # exit Forza Vista
-                    break
+                pyautogui.locateOnScreen("./Images/Esc.png", grayscale=True, confidence=0.75)
+                time.sleep(1)
+                pyautogui.press("esc") # exit Forza Vista
+                break
             except pyautogui.ImageNotFoundException:
                 continue
 
@@ -123,9 +122,9 @@ def Macro(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
         pyautogui.press("enter") # unlock first perk
         try:
             time.sleep(0.5)
-            if pyautogui.locateOnScreen("./Images/NoSkillPoint.png", grayscale=True, confidence=0.9) is not None:
-                print("No skill point left.")
-                break
+            pyautogui.locateOnScreen("./Images/NoSkillPoint.png", grayscale=True, confidence=0.9)
+            print("No skill point left.")
+            break
         except pyautogui.ImageNotFoundException:
             pass
 
@@ -134,9 +133,9 @@ def Macro(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
         pyautogui.press("enter") # unlock second perk
         try:
             time.sleep(0.5)
-            if pyautogui.locateOnScreen("./Images/NoSkillPoint.png", grayscale=True, confidence=0.9) is not None:
-                print("No skill point left.")
-                break
+            pyautogui.locateOnScreen("./Images/NoSkillPoint.png", grayscale=True, confidence=0.9)
+            print("No skill point left.")
+            break
         except pyautogui.ImageNotFoundException:
             pass
 
@@ -145,9 +144,9 @@ def Macro(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
         pyautogui.press("enter") # unlock third perk
         try:
             time.sleep(0.5)
-            if pyautogui.locateOnScreen("./Images/NoSkillPoint.png", grayscale=True, confidence=0.9) is not None:
-                print("No skill point left.")
-                break
+            pyautogui.locateOnScreen("./Images/NoSkillPoint.png", grayscale=True, confidence=0.9)
+            print("No skill point left.")
+            break
         except pyautogui.ImageNotFoundException:
             pass
 
@@ -156,9 +155,9 @@ def Macro(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
         pyautogui.press("enter") # unlock fourth perk
         try:
             time.sleep(0.5)
-            if pyautogui.locateOnScreen("./Images/NoSkillPoint.png", grayscale=True, confidence=0.9) is not None:
-                print("No skill point left.")
-                break
+            pyautogui.locateOnScreen("./Images/NoSkillPoint.png", grayscale=True, confidence=0.9)
+            print("No skill point left.")
+            break
         except pyautogui.ImageNotFoundException:
             pass
 
@@ -167,9 +166,9 @@ def Macro(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
         pyautogui.press("enter") # unlock last perk
         try:
             time.sleep(0.5)
-            if pyautogui.locateOnScreen("./Images/NoSkillPoint.png", grayscale=True, confidence=0.9) is not None:
-                print("No skill point left.")
-                break
+            pyautogui.locateOnScreen("./Images/NoSkillPoint.png", grayscale=True, confidence=0.9)
+            print("No skill point left.")
+            break
         except pyautogui.ImageNotFoundException:
             pass
 

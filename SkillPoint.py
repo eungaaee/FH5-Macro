@@ -19,11 +19,11 @@ def Macro(interrupt_event, loop=100): # 10sp * 100 = 1000sp
 
         while True:
             try:
-                if pyautogui.locateOnScreen("./Images/StartRaceEvent.png", grayscale=True, confidence=0.75) is not None:
-                    pyautogui.press("left")
-                    pyautogui.press("up")
-                    pyautogui.press("enter")
-                    break
+                pyautogui.locateOnScreen("./Images/StartRaceEvent.png", grayscale=True, confidence=0.75)
+                pyautogui.press("left")
+                pyautogui.press("up")
+                pyautogui.press("enter")
+                break
             except pyautogui.ImageNotFoundException:
                 continue
 
@@ -31,12 +31,12 @@ def Macro(interrupt_event, loop=100): # 10sp * 100 = 1000sp
 
         while True:
             try:
-                if pyautogui.locateOnScreen("./Images/Restart.png", grayscale=True, confidence=0.75) is not None:
-                    pyautogui.keyUp('w')
-                    pyautogui.press('x') # restart event
-                    time.sleep(0.5)
-                    pyautogui.press("enter") # confirm restart
-                    break
+                pyautogui.locateOnScreen("./Images/Restart.png", grayscale=True, confidence=0.75)
+                pyautogui.keyUp('w')
+                pyautogui.press('x') # restart event
+                time.sleep(0.5)
+                pyautogui.press("enter") # confirm restart
+                break
             except pyautogui.ImageNotFoundException:
                 continue
 
