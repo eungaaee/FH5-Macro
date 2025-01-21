@@ -1,32 +1,70 @@
 import pyautogui
 import keyboard
 import time
+import threading
 
-# Wait for F1 key to start
-print("Press F1 to start the script.")
-keyboard.wait("F1")
-print("Script started.")
-
-while True:
-    while True:
-        try:
-            if pyautogui.locateOnScreen("./Images/StartRaceEvent.png", grayscale=True, confidence=0.75) is not None:
-                pyautogui.press("left")
-                pyautogui.press("up")
-                pyautogui.press("enter")
+def Macro(interrupt_event, loop=100): # 10sp * 100 = 1000sp
+    current_loop = 0
+    while interrupt_event.is_set() == False:
+        if (loop == 0): # set loop 0 to run infinitely
+            pass
+        else:
+            print(f"{current_loop} / {loop}")
+            if (current_loop < loop):
+                current_loop += 1
+            else:
+                print("Completed.")
                 break
-        except pyautogui.ImageNotFoundException:
-            continue
 
-    pyautogui.keyDown('w')
+        while True:
+            try:
+                if pyautogui.locateOnScreen("./Images/StartRaceEvent.png", grayscale=True, confidence=0.75) is not None:
+                    pyautogui.press("left")
+                    pyautogui.press("up")
+                    pyautogui.press("enter")
+                    break
+            except pyautogui.ImageNotFoundException:
+                continue
 
+        pyautogui.keyDown('w')
+
+        while True:
+            try:
+                if pyautogui.locateOnScreen("./Images/Restart.png", grayscale=True, confidence=0.75) is not None:
+                    pyautogui.keyUp('w')
+                    pyautogui.press('x') # restart event
+                    time.sleep(0.5)
+                    pyautogui.press("enter") # confirm restart
+                    break
+            except pyautogui.ImageNotFoundException:
+                continue
+
+def Stopper(interrupt_event):
     while True:
-        try:
-            if pyautogui.locateOnScreen("./Images/Restart.png", grayscale=True, confidence=0.75) is not None:
-                pyautogui.keyUp('w')
-                pyautogui.press('x') # restart event
-                time.sleep(0.5)
-                pyautogui.press("enter") # confirm restart
-                break
-        except pyautogui.ImageNotFoundException:
-            continue
+        if keyboard.is_pressed("F2"):
+            interrupt_event.set()
+            print("Script will be stopped after the current loop.")
+            break
+        time.sleep(0.1)
+
+def main():
+    # wait for F1 key to start
+    print("Press F1 to start the script.")
+    keyboard.wait("F1")
+    print("Script started.")
+
+    interrupt_event = threading.Event()
+
+    macro_thread = threading.Thread(target=Macro, args=(interrupt_event, ))
+    stopper_thread = threading.Thread(target=Stopper, args=(interrupt_event, ))
+
+    macro_thread.start()
+    stopper_thread.start()
+
+    macro_thread.join()
+    stopper_thread.join()
+
+    print("Exiting the script.")
+
+if __name__ == "__main__":
+    main()
