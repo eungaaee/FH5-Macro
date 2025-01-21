@@ -14,6 +14,7 @@ def Macro(interrupt_event, loop=100): # 10sp * 100 = 1000sp
                 current_loop += 1
             else:
                 print("Completed.")
+                interrupt_event.set()
                 break
 
         while True:
@@ -40,7 +41,7 @@ def Macro(interrupt_event, loop=100): # 10sp * 100 = 1000sp
                 continue
 
 def Stopper(interrupt_event):
-    while True:
+    while interrupt_event.is_set() == False:
         if keyboard.is_pressed("F2"):
             interrupt_event.set()
             print("Script will be stopped after the current loop.")
