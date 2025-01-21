@@ -7,15 +7,8 @@ print("Press F1 to start the script.")
 keyboard.wait("F1")
 print("Script started.")
 
-quit = False
 while True:
-    if quit == True:
-        break
-
     while True:
-        if keyboard.is_pressed("F2"):
-            quit = True
-            break
         try:
             if pyautogui.locateOnScreen("./Images/StartRaceEvent.png", grayscale=True, confidence=0.75) is not None:
                 pyautogui.press("left")
@@ -25,14 +18,9 @@ while True:
         except pyautogui.ImageNotFoundException:
             continue
 
-    if quit == True:
-        break
     pyautogui.keyDown('w')
 
     while True:
-        if keyboard.is_pressed("F2"):
-            quit = True
-            break
         try:
             if pyautogui.locateOnScreen("./Images/Restart.png", grayscale=True, confidence=0.75) is not None:
                 pyautogui.keyUp('w')

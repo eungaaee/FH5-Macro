@@ -47,7 +47,7 @@ while True:
         pyautogui.press("right", presses=3, interval=0.05)
         pyautogui.press("enter")
     # select "Trident" and buy it
-    time.sleep(1)
+    time.sleep(1.5)
     pyautogui.press("right")
     pyautogui.press('y')
     time.sleep(0.5)
@@ -67,7 +67,7 @@ while True:
     pyautogui.press("enter")
     # scroll to the left end
     pyautogui.keyDown("pageup")
-    time.sleep(10 if is_first else 1) # adjust this value to match the time it takes to get to the left end of the garage
+    time.sleep(10 if is_first else 0.5) # adjust this value to match the time it takes to get to the left end of the garage
     pyautogui.keyUp("pageup")
 
     # validate that the Peel Trident is selected
@@ -104,18 +104,53 @@ while True:
     pyautogui.press("enter") # enter Car Mastery menu
     time.sleep(0.5)
     pyautogui.press("enter") # unlock first perk
+    while True:
+        try:
+            if pyautogui.locateOnScreen("./Images/NoSkillPoint.png", grayscale=True, confidence=0.75) is not None:
+                quit = True
+                break
+        except pyautogui.ImageNotFoundException:
+            continue
     time.sleep(1)
     pyautogui.press("right")
     pyautogui.press("enter") # unlock second perk
+    while True:
+        try:
+            if pyautogui.locateOnScreen("./Images/NoSkillPoint.png", grayscale=True, confidence=0.75) is not None:
+                quit = True
+                break
+        except pyautogui.ImageNotFoundException:
+            continue
     time.sleep(1)
     pyautogui.press("right")
     pyautogui.press("enter") # unlock third perk
+    while True:
+        try:
+            if pyautogui.locateOnScreen("./Images/NoSkillPoint.png", grayscale=True, confidence=0.75) is not None:
+                quit = True
+                break
+        except pyautogui.ImageNotFoundException:
+            continue
     time.sleep(1)
     pyautogui.press("up")
     pyautogui.press("enter") # unlock fourth perk
+    while True:
+        try:
+            if pyautogui.locateOnScreen("./Images/NoSkillPoint.png", grayscale=True, confidence=0.75) is not None:
+                quit = True
+                break
+        except pyautogui.ImageNotFoundException:
+            continue
     time.sleep(1)
     pyautogui.press("right")
     pyautogui.press("enter") # unlock last perk
+    while True:
+        try:
+            if pyautogui.locateOnScreen("./Images/NoSkillPoint.png", grayscale=True, confidence=0.75) is not None:
+                quit = True
+                break
+        except pyautogui.ImageNotFoundException:
+            continue
     time.sleep(1)
     pyautogui.press("esc") # back to Upgrades & Tuning menu
     time.sleep(1)
