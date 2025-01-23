@@ -3,16 +3,26 @@ import keyboard
 import time
 import threading
 
+def FindImage(file_name, confidence, interval=0, limit=0, scroll=0):
+    for _ in iter(int, 1) if limit == 0 else range(limit):
+        if (interval > 0):
+            time.sleep(interval)
+        try:
+            location = pyautogui.locateOnScreen(f"./Images/{file_name}", grayscale=True, confidence=confidence)
+            return location
+        except pyautogui.ImageNotFoundException:
+            if scroll > 0:
+                pyautogui.press("down", presses=scroll, interval=0.05)
+            elif scroll < 0:
+                pyautogui.press("up", presses=-scroll, interval=0.05)
+            continue
+    
+    return None
+
 def Macro(interrupt_event):
     count = 0
     while interrupt_event.is_set() == False:
-        while True:
-            try:
-                pyautogui.locateOnScreen("./Images/GiftSelect.png", grayscale=True, confidence=0.75)
-                break
-            except pyautogui.ImageNotFoundException:
-                continue
-
+        FindImage("GiftSelect.png", 0.75, interval=0.1) # wait for the gift menu screen open
         pyautogui.press("backspace") # open search window
         # focus on the search window. if not doing this, scrolling will work weirdly
         pyautogui.moveTo(1, 1)
@@ -20,21 +30,11 @@ def Macro(interrupt_event):
         pyautogui.mouseUp()
 
         # select "Peel"
-        time.sleep(0.1)
-        row = 30 # change this value to the maximum number of rows in the search window
-        found = False
-        for _ in range(row):
-            try:
-                peel_location = pyautogui.locateOnScreen("./Images/Peel.png", grayscale=True, confidence=0.9)
-                pyautogui.moveTo(peel_location)
-                pyautogui.press("enter")
-                found = True
-                break
-            except pyautogui.ImageNotFoundException:
-                pyautogui.press("down")
-                continue
-
-        if not found:
+        peel_location = FindImage("Peel.png", 0.9, interval=0, limit=5, scroll=5) # scroll down to find the "Peel"
+        if peel_location != None:
+            pyautogui.moveTo(peel_location)
+            pyautogui.press("enter")
+        else:
             print(f"A total of {count} cars have been gifted.")
             pyautogui.press("esc")
             interrupt_event.set()

@@ -3,6 +3,16 @@ import keyboard
 import time
 import threading
 
+def FindImage(file_name, confidence, interval=0):
+    while True:
+        if (interval > 0):
+            time.sleep(interval)
+        try:
+            location = pyautogui.locateOnScreen(f"./Images/{file_name}", grayscale=True, confidence=confidence)
+            return location
+        except pyautogui.ImageNotFoundException:
+            continue
+
 def Macro(interrupt_event, loop=100): # 10sp * 100 = 1000sp
     current_loop = 0
     while interrupt_event.is_set() == False:
@@ -17,32 +27,22 @@ def Macro(interrupt_event, loop=100): # 10sp * 100 = 1000sp
                 interrupt_event.set()
                 break
 
-        while True:
-            try:
-                startraceevent_location = pyautogui.locateOnScreen("./Images/StartRaceEvent.png", grayscale=True, confidence=0.75)
-                pyautogui.moveTo(startraceevent_location)
-                pyautogui.mouseDown()
-                pyautogui.mouseUp()
-                """ pyautogui.press("left")
-                pyautogui.press("up")
-                pyautogui.press("enter") """
-                break
-            except pyautogui.ImageNotFoundException:
-                continue
+        startraceevent_location = FindImage("StartRaceEvent.png", 0.75, 0.1)
+        pyautogui.moveTo(startraceevent_location)
+        pyautogui.mouseDown()
+        pyautogui.mouseUp()
+        """ pyautogui.press("left")
+        pyautogui.press("up")
+        pyautogui.press("enter") """
 
         time.sleep(2)
         pyautogui.keyDown('w')
 
-        while True:
-            try:
-                pyautogui.locateOnScreen("./Images/Restart.png", grayscale=True, confidence=0.75)
-                pyautogui.keyUp('w')
-                pyautogui.press('x') # restart event
-                time.sleep(0.5)
-                pyautogui.press("enter") # confirm restart
-                break
-            except pyautogui.ImageNotFoundException:
-                continue
+        FindImage("Restart.png", 0.75, 0.1) # wait for the restart button
+        pyautogui.keyUp('w')
+        pyautogui.press('x') # restart event
+        time.sleep(0.5)
+        pyautogui.press("enter") # confirm restart
 
 def Stopper(interrupt_event):
     while interrupt_event.is_set() == False:
