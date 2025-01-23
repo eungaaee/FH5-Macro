@@ -27,7 +27,7 @@ def Macro(interrupt_event, loop=100): # 10sp * 100 = 1000sp
                 interrupt_event.set()
                 break
 
-        startraceevent_location = FindImage("StartRaceEvent.png", 0.75, 0.1)
+        startraceevent_location = FindImage("StartRaceEvent.png", 0.75, interval=0.1)
         pyautogui.moveTo(startraceevent_location)
         pyautogui.mouseDown()
         pyautogui.mouseUp()
@@ -38,10 +38,10 @@ def Macro(interrupt_event, loop=100): # 10sp * 100 = 1000sp
         time.sleep(2)
         pyautogui.keyDown('w')
 
-        FindImage("Restart.png", 0.75, 0.1) # wait for the restart button
+        FindImage("Restart.png", 0.75, interval=0.1) # wait for the restart button
         pyautogui.keyUp('w')
         pyautogui.press('x') # restart event
-        time.sleep(0.5)
+        time.sleep(0.25)
         pyautogui.press("enter") # confirm restart
 
 def Stopper(interrupt_event):

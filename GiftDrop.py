@@ -30,7 +30,7 @@ def Macro(interrupt_event):
         pyautogui.mouseUp()
 
         # select "Peel"
-        peel_location = FindImage("Peel.png", 0.9, interval=0, limit=5, scroll=5) # scroll down to find the "Peel"
+        peel_location = FindImage("Peel.png", 0.9, interval=0.1, limit=5, scroll=5) # scroll down to find the "Peel"
         if peel_location != None:
             pyautogui.moveTo(peel_location)
             pyautogui.press("enter")
@@ -41,29 +41,25 @@ def Macro(interrupt_event):
             break
 
         # send gift
-        time.sleep(0.5)
+        time.sleep(0.4)
         pyautogui.press("enter") # select the Peel car
-        time.sleep(0.5)
+        time.sleep(0.4)
         pyautogui.press("enter") # gift to
-        time.sleep(0.5)
+        time.sleep(0.4)
         pyautogui.press("enter") # gift message
-        time.sleep(0.5)
+        time.sleep(0.4)
         pyautogui.press("down", presses=2, interval=0.05) # select "UNSIGNED"
         pyautogui.press("enter") # gift from
-        time.sleep(0.5)
+        time.sleep(0.4)
         pyautogui.press("enter") # your gift
-        time.sleep(0.5)
+        """ time.sleep(0.4)
         pyautogui.press("down") # confirm warning message
-        pyautogui.press("enter") # warning
-        time.sleep(0.5)
+        pyautogui.press("enter")
+        time.sleep(0.4) """
 
-        while True: # wait for the gift to be sent
-            try:
-                pyautogui.locateOnScreen("./Images/GiftSent.png", grayscale=True, confidence=0.9)
-                break
-            except pyautogui.ImageNotFoundException:
-                continue
+        FindImage("GiftSent.png", 0.9, interval=0.1) # wait for the gift to be sent
         pyautogui.press("enter") # gift sent
+
         count += 1
         print(f"Gift sent. Count: {count}")
 

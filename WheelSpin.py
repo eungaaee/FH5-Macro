@@ -45,14 +45,13 @@ def Macro(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
         pyautogui.press("up", presses=4, interval=0.05)
         pyautogui.press("enter")
 
+        # wait for the Car Collection menu to load
+        time.sleep(0.25)
+        FindImage("Esc.png", 0.75, interval=0.1)
+
         if is_first:
-
-
-            # wait for the Car Collection menu to load
-            time.sleep(0.5)
-            FindImage("Esc.png", 0.75, interval=0.1)
             # open search window
-            time.sleep(0.5)
+            time.sleep(0.1)
             pyautogui.press("backspace")
             # focus on the search window. if not doing this, scrolling will work weirdly
             pyautogui.moveTo(1, 1)
@@ -62,46 +61,57 @@ def Macro(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
             peel_location = FindImage("Peel.png", 0.9, scroll=-5)
             pyautogui.moveTo(peel_location)
             pyautogui.press("enter")
+            # there is a bug in the game that the Peel section is not selected properly at the first time if it is too far from the opened section
+            # so, select the Peel section again
+            time.sleep(0.25)
+            pyautogui.press("backspace")
+            time.sleep(0.25)
+            pyautogui.press("enter")
+            time.sleep(0.25)
 
-        time.sleep(1)
+        time.sleep(0.1)
         pyautogui.press("right")
         pyautogui.press('y')
-        time.sleep(0.5)
+        time.sleep(0.25)
         pyautogui.press("enter")
         time.sleep(0.5)
         pyautogui.press("esc") # back to the Garage menu
 
         # wait for the Garage menu to load
-        time.sleep(0.5)
+        time.sleep(0.25)
         FindImage("Esc.png", 0.75, interval=0.1)
 
         # enter the My Cars menu
-        time.sleep(0.5)
+        time.sleep(0.1)
         pyautogui.press("left")
         pyautogui.press("enter")
 
         # wait for the My Cars menu to load
-        time.sleep(0.5)
+        time.sleep(0.25)
         FindImage("Esc.png", 0.75, interval=0.1)
 
         # order the cars by most recent
-        time.sleep(0.5)
+        time.sleep(0.1)
         pyautogui.press('x')
-        time.sleep(0.5)
+        time.sleep(0.25)
         pyautogui.press("down", presses=6, interval=0.05)
         pyautogui.press("enter")
 
         # scroll to the left end
-        pyautogui.keyDown("pageup")
-        time.sleep(20 if is_first else 0.5) # adjust this value to match the time it takes to get to the left end of the garage
-        pyautogui.keyUp("pageup")
+        time.sleep(0.25)
+        if is_first:
+            pyautogui.keyDown("pageup")
+            time.sleep(20) # adjust this value to match the time it takes to get to the left end of the garage
+            pyautogui.keyUp("pageup")
+        else:
+            pyautogui.press("pageup")
 
         # validate that the Peel Trident is selected
         FindImage("PeelTrident.png", 0.9, interval=0.1)
 
         # get in car
         pyautogui.press("enter")
-        time.sleep(0.5)
+        time.sleep(0.25)
         pyautogui.press("enter")
 
         # wait for the Forza Vista to load
@@ -109,25 +119,25 @@ def Macro(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
         FindImage("Esc.png", 0.75, interval=0.1)
 
         # exit Forza Vista
-        time.sleep(1.5)
+        time.sleep(0.25)
         pyautogui.press("esc") # back to the Garage menu
 
         # wait for the Garage menu to load
-        time.sleep(0.5)
+        time.sleep(0.25)
         FindImage("Esc.png", 0.75, interval=0.1)
 
         # enter the Upgrade & Tuning menu
-        time.sleep(0.5)
+        time.sleep(0.1)
         pyautogui.press("left", presses=2, interval=0.05)
         pyautogui.press("enter")
 
         # wait for the Upgrade & Tuning menu to load
-        time.sleep(0.5)
+        time.sleep(0.25)
         FindImage("Esc.png", 0.75, interval=0.1)
 
         # enter Car Mastery menu
         """ pyautogui.press("enter") # discard "New Upgrades Available" popup """
-        time.sleep(0.5)
+        time.sleep(0.1)
         pyautogui.press("right", presses=2, interval=0.05)
         pyautogui.press("down")
         pyautogui.press("enter")
@@ -139,28 +149,28 @@ def Macro(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
             print("No skill point left.")
             break
 
-        time.sleep(0.5)
+        time.sleep(0.4)
         pyautogui.press("right")
         is_unlocked = UnlockPerk() # unlock second perk
         if is_unlocked == False:
             print("No skill point left.")
             break
 
-        time.sleep(0.5)
+        time.sleep(0.4)
         pyautogui.press("right")
         is_unlocked = UnlockPerk() # unlock third perk
         if is_unlocked == False:
             print("No skill point left.")
             break
 
-        time.sleep(0.5)
+        time.sleep(0.4)
         pyautogui.press("up")
         is_unlocked = UnlockPerk() # unlock fourth perk
         if is_unlocked == False:
             print("No skill point left.")
             break
 
-        time.sleep(0.5)
+        time.sleep(0.4)
         pyautogui.press("right")
         is_unlocked = UnlockPerk() # unlock last perk
         if is_unlocked == False:
@@ -168,11 +178,11 @@ def Macro(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
             break
 
         # back to Upgrades & Tuning menu
-        time.sleep(0.5)
+        time.sleep(0.4)
         pyautogui.press("esc")
 
         # wait for the Upgrade & Tuning menu to load
-        time.sleep(0.5)
+        time.sleep(0.25)
         FindImage("Esc.png", 0.75, interval=0.1)
 
         # back to Garage menu
@@ -180,7 +190,7 @@ def Macro(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
         pyautogui.press("esc")
 
         # wait for the Garage menu to load
-        time.sleep(0.5)
+        time.sleep(0.25)
         FindImage("Esc.png", 0.75, interval=0.1)
 
         if is_first == True:
