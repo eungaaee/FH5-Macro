@@ -129,7 +129,7 @@ def Macro(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
 
         # enter the Upgrade & Tuning menu
         time.sleep(0.25)
-        pyautogui.press("left", presses=2, interval=0.05)
+        pyautogui.press("left")
         pyautogui.press("enter")
 
         # wait for the Upgrade & Tuning menu to load
