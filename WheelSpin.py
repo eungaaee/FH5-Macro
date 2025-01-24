@@ -41,6 +41,7 @@ def Macro(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
 
         # open Car Collection
         FindImage("CarCollection.png", 0.75, interval=0.1)
+        time.sleep(0.25)
         pyautogui.press("right", presses=2, interval=0.05)
         pyautogui.press("up", presses=4, interval=0.05)
         pyautogui.press("enter")
@@ -51,7 +52,7 @@ def Macro(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
 
         if is_first:
             # open search window
-            time.sleep(0.1)
+            time.sleep(0.25)
             pyautogui.press("backspace")
             # focus on the search window. if not doing this, scrolling will work weirdly
             pyautogui.moveTo(1, 1)
@@ -69,7 +70,7 @@ def Macro(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
             pyautogui.press("enter")
             time.sleep(0.25)
 
-        time.sleep(0.1)
+        time.sleep(0.25)
         pyautogui.press("right")
         pyautogui.press('y')
         time.sleep(0.25)
@@ -82,7 +83,7 @@ def Macro(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
         FindImage("Esc.png", 0.75, interval=0.1)
 
         # enter the My Cars menu
-        time.sleep(0.1)
+        time.sleep(0.25)
         pyautogui.press("left")
         pyautogui.press("enter")
 
@@ -91,7 +92,7 @@ def Macro(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
         FindImage("Esc.png", 0.75, interval=0.1)
 
         # order the cars by most recent
-        time.sleep(0.1)
+        time.sleep(0.25)
         pyautogui.press('x')
         time.sleep(0.25)
         pyautogui.press("down", presses=6, interval=0.05)
@@ -127,7 +128,7 @@ def Macro(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
         FindImage("Esc.png", 0.75, interval=0.1)
 
         # enter the Upgrade & Tuning menu
-        time.sleep(0.1)
+        time.sleep(0.25)
         pyautogui.press("left", presses=2, interval=0.05)
         pyautogui.press("enter")
 
@@ -137,7 +138,7 @@ def Macro(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
 
         # enter Car Mastery menu
         """ pyautogui.press("enter") # discard "New Upgrades Available" popup """
-        time.sleep(0.1)
+        time.sleep(0.25)
         pyautogui.press("right", presses=2, interval=0.05)
         pyautogui.press("down")
         pyautogui.press("enter")
@@ -186,7 +187,7 @@ def Macro(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
         FindImage("Esc.png", 0.75, interval=0.1)
 
         # back to Garage menu
-        time.sleep(0.1)
+        time.sleep(0.25)
         pyautogui.press("esc")
 
         # wait for the Garage menu to load

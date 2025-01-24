@@ -10,7 +10,7 @@ This project provides a macro to automate the process of earning skill points an
 
 ## How to use
 ### Skill Point
-1. Enter your Farming EventLab. (eg. 145 828 346)
+1. Enter your Farming EventLab. (Search the GamerTag "KarmaDriving")
 2. In the "Start Race Event Button" showing menu, Start the macro script.
 3. The macro will automatically start farming.
 ### Wheelspin
