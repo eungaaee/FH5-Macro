@@ -26,7 +26,7 @@ def UnlockPerk():
 
 # buy in Car Collection
 def Macro(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
-    is_first = False
+    is_first = True
     current_loop = 0
     while interrupt_event.is_set() == False:
         if (loop == 0): # set loop 0 to run infinitely
@@ -44,7 +44,10 @@ def Macro(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
             location = FindImage("CarCollection.png", 0.9, interval=0.1)
             pyautogui.moveTo(location)
         else:
+            time.sleep(0.1)
             pyautogui.press("right", presses=2, interval=0.05)
+
+        time.sleep(0.1)
         pyautogui.press("enter")
 
         # wait for the Car Collection menu to load
@@ -53,7 +56,7 @@ def Macro(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
 
         if is_first:
             # open search window
-            time.sleep(0.25)
+            time.sleep(0.1)
             pyautogui.press("backspace")
             # focus on the search window. if not doing this, scrolling will work weirdly
             pyautogui.moveTo(1, 1)
@@ -71,7 +74,7 @@ def Macro(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
             pyautogui.press("enter")
             time.sleep(0.25)
 
-        time.sleep(0.25)
+        time.sleep(0.1)
         pyautogui.press("right")
         pyautogui.press('y')
         time.sleep(0.25)
@@ -84,7 +87,7 @@ def Macro(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
         FindImage("Esc.png", 0.9, interval=0.1)
 
         # enter the My Cars menu
-        time.sleep(0.25)
+        time.sleep(0.1)
         pyautogui.press("left")
         pyautogui.press("enter")
 
@@ -93,7 +96,7 @@ def Macro(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
         FindImage("Esc.png", 0.9, interval=0.1)
 
         # order the cars by most recent
-        time.sleep(0.25)
+        time.sleep(0.1)
         pyautogui.press('x')
         time.sleep(0.25)
         pyautogui.press("down", presses=6, interval=0.05)
@@ -121,7 +124,7 @@ def Macro(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
         FindImage("Esc.png", 0.9, interval=0.1)
 
         # exit Forza Vista
-        time.sleep(0.25)
+        time.sleep(0.1)
         pyautogui.press("esc") # back to the Garage menu
 
         # wait for the Garage menu to load
@@ -129,7 +132,7 @@ def Macro(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
         FindImage("Esc.png", 0.9, interval=0.1)
 
         # enter the Upgrade & Tuning menu
-        time.sleep(0.25)
+        time.sleep(0.1)
         pyautogui.press("left")
         pyautogui.press("enter")
 
@@ -139,7 +142,7 @@ def Macro(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
 
         # enter Car Mastery menu
         """ pyautogui.press("enter") # discard "New Upgrades Available" popup """
-        time.sleep(0.25)
+        time.sleep(0.1)
         pyautogui.press("right", presses=2, interval=0.05)
         pyautogui.press("down")
         pyautogui.press("enter")
@@ -158,21 +161,21 @@ def Macro(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
             print("No skill point left.")
             break
 
-        time.sleep(0.4)
+        time.sleep(0.25)
         pyautogui.press("right")
         is_unlocked = UnlockPerk() # unlock third perk
         if is_unlocked == False:
             print("No skill point left.")
             break
 
-        time.sleep(0.4)
+        time.sleep(0.25)
         pyautogui.press("up")
         is_unlocked = UnlockPerk() # unlock fourth perk
         if is_unlocked == False:
             print("No skill point left.")
             break
 
-        time.sleep(0.4)
+        time.sleep(0.25)
         pyautogui.press("right")
         is_unlocked = UnlockPerk() # unlock last perk
         if is_unlocked == False:
@@ -180,7 +183,7 @@ def Macro(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
             break
 
         # back to Upgrades & Tuning menu
-        time.sleep(0.4)
+        time.sleep(0.25)
         pyautogui.press("esc")
 
         # wait for the Upgrade & Tuning menu to load
@@ -188,7 +191,7 @@ def Macro(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
         FindImage("Esc.png", 0.9, interval=0.1)
 
         # back to Garage menu
-        time.sleep(0.25)
+        time.sleep(0.1)
         pyautogui.press("esc")
 
         # wait for the Garage menu to load
