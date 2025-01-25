@@ -26,7 +26,7 @@ def UnlockPerk():
 
 # buy in Car Collection
 def Macro(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
-    is_first = True
+    is_first = False
     current_loop = 0
     while interrupt_event.is_set() == False:
         if (loop == 0): # set loop 0 to run infinitely
@@ -40,15 +40,16 @@ def Macro(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
                 break
 
         # open Car Collection
-        FindImage("CarCollection.png", 0.75, interval=0.1)
-        time.sleep(0.25)
-        pyautogui.press("right", presses=2, interval=0.05)
-        pyautogui.press("up", presses=4, interval=0.05)
+        if is_first:
+            location = FindImage("CarCollection.png", 0.9, interval=0.1)
+            pyautogui.moveTo(location)
+        else:
+            pyautogui.press("right", presses=2, interval=0.05)
         pyautogui.press("enter")
 
         # wait for the Car Collection menu to load
         time.sleep(0.25)
-        FindImage("Esc.png", 0.75, interval=0.1)
+        FindImage("Esc.png", 0.9, interval=0.1)
 
         if is_first:
             # open search window
@@ -59,8 +60,8 @@ def Macro(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
             pyautogui.mouseDown()
             pyautogui.mouseUp()
             # select "Peel"
-            peel_location = FindImage("Peel.png", 0.9, scroll=-5)
-            pyautogui.moveTo(peel_location)
+            location = FindImage("Peel.png", 0.9, scroll=-5)
+            pyautogui.moveTo(location)
             pyautogui.press("enter")
             # there is a bug in the game that the Peel section is not selected properly at the first time if it is too far from the opened section
             # so, select the Peel section again
@@ -80,7 +81,7 @@ def Macro(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
 
         # wait for the Garage menu to load
         time.sleep(0.25)
-        FindImage("Esc.png", 0.75, interval=0.1)
+        FindImage("Esc.png", 0.9, interval=0.1)
 
         # enter the My Cars menu
         time.sleep(0.25)
@@ -89,7 +90,7 @@ def Macro(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
 
         # wait for the My Cars menu to load
         time.sleep(0.25)
-        FindImage("Esc.png", 0.75, interval=0.1)
+        FindImage("Esc.png", 0.9, interval=0.1)
 
         # order the cars by most recent
         time.sleep(0.25)
@@ -117,7 +118,7 @@ def Macro(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
 
         # wait for the Forza Vista to load
         time.sleep(1)
-        FindImage("Esc.png", 0.75, interval=0.1)
+        FindImage("Esc.png", 0.9, interval=0.1)
 
         # exit Forza Vista
         time.sleep(0.25)
@@ -125,7 +126,7 @@ def Macro(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
 
         # wait for the Garage menu to load
         time.sleep(0.25)
-        FindImage("Esc.png", 0.75, interval=0.1)
+        FindImage("Esc.png", 0.9, interval=0.1)
 
         # enter the Upgrade & Tuning menu
         time.sleep(0.25)
@@ -134,7 +135,7 @@ def Macro(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
 
         # wait for the Upgrade & Tuning menu to load
         time.sleep(0.25)
-        FindImage("Esc.png", 0.75, interval=0.1)
+        FindImage("Esc.png", 0.9, interval=0.1)
 
         # enter Car Mastery menu
         """ pyautogui.press("enter") # discard "New Upgrades Available" popup """
@@ -184,7 +185,7 @@ def Macro(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
 
         # wait for the Upgrade & Tuning menu to load
         time.sleep(0.25)
-        FindImage("Esc.png", 0.75, interval=0.1)
+        FindImage("Esc.png", 0.9, interval=0.1)
 
         # back to Garage menu
         time.sleep(0.25)
@@ -192,7 +193,7 @@ def Macro(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
 
         # wait for the Garage menu to load
         time.sleep(0.25)
-        FindImage("Esc.png", 0.75, interval=0.1)
+        FindImage("Esc.png", 0.9, interval=0.1)
 
         if is_first == True:
             is_first = False
