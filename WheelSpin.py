@@ -8,7 +8,7 @@ def FindImage(file_name, confidence, interval=0, limit=0, scroll=0):
         if (interval > 0):
             time.sleep(interval)
         try:
-            location = pyautogui.locateOnScreen(f"./Images/{file_name}", grayscale=True, confidence=confidence)
+            location = pyautogui.locateOnScreen(f"./Images/{file_name}", grayscale=True, confidence=confidence) # using the confidence parameter will force to use _locateAll_opencv() instead of _locateAll_pillow()
             return location
         except pyautogui.ImageNotFoundException:
             if scroll > 0:
@@ -32,22 +32,20 @@ def Macro(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
         if (loop == 0): # set loop 0 to run infinitely
             pass
         else:
-            print(f"{current_loop} / {loop}")
             if (current_loop < loop):
                 current_loop += 1
+                print(f"{current_loop} / {loop}")
             else:
                 print("Completed.")
                 break
 
         # open Car Collection
+        time.sleep(0.1)
         if is_first:
             location = FindImage("CarCollection.png", 0.9, interval=0.1)
             pyautogui.moveTo(location)
         else:
-            time.sleep(0.1)
             pyautogui.press("right", presses=2, interval=0.05)
-
-        time.sleep(0.1)
         pyautogui.press("enter")
 
         # wait for the Car Collection menu to load
@@ -106,7 +104,7 @@ def Macro(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
         time.sleep(0.25)
         if is_first:
             pyautogui.keyDown("pageup")
-            time.sleep(20) # adjust this value to match the time it takes to get to the left end of the garage
+            time.sleep(25) # adjust this value to match the time it takes to get to the left end of the garage
             pyautogui.keyUp("pageup")
         else:
             pyautogui.press("pageup")
@@ -120,11 +118,11 @@ def Macro(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
         pyautogui.press("enter")
 
         # wait for the Forza Vista to load
-        time.sleep(1)
+        time.sleep(5)
         FindImage("Esc.png", 0.9, interval=0.1)
 
         # exit Forza Vista
-        time.sleep(0.1)
+        time.sleep(0.5) # forza vista is very slow and laggy compared to the other menus, so it needs more delay
         pyautogui.press("esc") # back to the Garage menu
 
         # wait for the Garage menu to load

@@ -19,9 +19,9 @@ def Macro(interrupt_event, loop=100): # 10sp * 100 = 1000sp
         if (loop == 0): # set loop 0 to run infinitely
             pass
         else:
-            print(f"{current_loop} / {loop}")
             if (current_loop < loop):
                 current_loop += 1
+                print(f"{current_loop} / {loop}")
             else:
                 print("Completed.")
                 interrupt_event.set()
