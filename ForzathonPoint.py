@@ -25,7 +25,7 @@ def UnlockPerk():
     return True if found == None else False
 
 # buy in Car Collection
-def Macro(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
+def Macro(interrupt_event, loop=999, car="Jaguar"): # BMW and Lexus: 999sp / 5sp per car = 199.8 cars, Jaguar: 999sp / 1sp per car = 999 cars
     is_first = True
     current_loop = 0
     while interrupt_event.is_set() == False:
@@ -60,13 +60,13 @@ def Macro(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
             pyautogui.moveTo(1, 1)
             pyautogui.mouseDown()
             pyautogui.mouseUp()
-            # select "Peel"
-            location = FindImage("Peel.png", 0.9, interval=0.1, scroll=-5)
+            # select "car" Section
+            location = FindImage(f"{car}.png" , 0.9, interval=0.1, scroll=5)
             pyautogui.moveTo(location)
             pyautogui.press("enter")
             pyautogui.moveTo(1, 1) # move the cursor to the top left corner to prevent interference
-            # there is a bug in the game that the Peel section is not selected properly at the first time if it is too far from the opened section
-            # so, select the Peel section again
+            # there is a bug in the game that the section is not selected properly at the first time if it is too far from the opened section
+            # so, select the section again
             time.sleep(0.25)
             pyautogui.press("backspace")
             time.sleep(0.25)
@@ -74,7 +74,12 @@ def Macro(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
             time.sleep(0.25)
 
         time.sleep(0.1)
-        pyautogui.press("right")
+        if car == "BMW":
+            pyautogui.press("right", presses=6, interval=0.05)
+        elif car == "Lexus":
+            pass
+        elif car == "Jaguar":
+            pyautogui.press("right", presses=3, interval=0.05)
         pyautogui.press('y')
         time.sleep(0.25)
         pyautogui.press("enter")
@@ -110,10 +115,24 @@ def Macro(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
         else:
             pyautogui.press("pageup")
 
-        # validate that the Peel Trident is selected
-        FindImage("Trident.png", 0.9, interval=0.1)
+        if (car == "BMW"):
+            # validate that the BMW M5 1995 is selected
+            FindImage("M5_1995.png", 0.9, interval=0.1)
+        elif (car == "Lexus"):
+            # validate that the Lexus SC300 is selected
+            FindImage("SC300.png", 0.9, interval=0.1)
+        elif (car == "Jaguar"):
+            # validate that the Jaguar E-Type is selected
+            FindImage("E-Type.png", 0.9, interval=0.1)
+
+        # mark the car as favorite
+        pyautogui.press("enter")
+        time.sleep(0.25)
+        pyautogui.press("down")
+        pyautogui.press("enter")
 
         # get in the car
+        time.sleep(1)
         pyautogui.press("enter")
         time.sleep(0.25)
         pyautogui.press("enter")
@@ -147,39 +166,33 @@ def Macro(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
         pyautogui.press("enter")
 
         # unlock perks
-        time.sleep(0.5)
-        is_unlocked = UnlockPerk() # unlock first perk
-        if is_unlocked == False:
-            print("No skill point left.")
-            break
+        if car == "BMW" or car == "Lexus":
+            time.sleep(0.5)
+            is_unlocked = UnlockPerk() # unlock first perk
+            if is_unlocked == False:
+                print("No skill point left.")
+                break
 
-        time.sleep(0.4)
-        pyautogui.press("right")
-        is_unlocked = UnlockPerk() # unlock second perk
-        if is_unlocked == False:
-            print("No skill point left.")
-            break
+            time.sleep(0.4)
+            pyautogui.press("right")
+            is_unlocked = UnlockPerk() # unlock second perk
+            if is_unlocked == False:
+                print("No skill point left.")
+                break
 
-        time.sleep(0.25)
-        pyautogui.press("right")
-        is_unlocked = UnlockPerk() # unlock third perk
-        if is_unlocked == False:
-            print("No skill point left.")
-            break
-
-        time.sleep(0.25)
-        pyautogui.press("up")
-        is_unlocked = UnlockPerk() # unlock fourth perk
-        if is_unlocked == False:
-            print("No skill point left.")
-            break
-
-        time.sleep(0.25)
-        pyautogui.press("right")
-        is_unlocked = UnlockPerk() # unlock last perk
-        if is_unlocked == False:
-            print("No skill point left.")
-            break
+            time.sleep(0.25)
+            pyautogui.press("up")
+            is_unlocked = UnlockPerk() # unlock third perk
+            if is_unlocked == False:
+                print("No skill point left.")
+                break
+        elif car == "Jaguar":
+            time.sleep(0.5)
+            is_unlocked = UnlockPerk() # unlock first perk
+            if is_unlocked == False:
+                print("No skill point left.")
+                break
+            time.sleep(0.15) # + 0.25 = 0.4
 
         # back to Upgrades & Tuning menu
         time.sleep(0.25)
@@ -199,136 +212,6 @@ def Macro(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
 
         if is_first == True:
             is_first = False
-
-    interrupt_event.set()
-
-# buy in Autoshow
-def Macro_Autoshow(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
-    current_loop = 0
-    while interrupt_event.is_set() == False:
-        if (loop == 0): # set loop 0 to run infinitely
-            pass
-        else:
-            print(f"{current_loop} / {loop}")
-            if (current_loop < loop):
-                current_loop += 1
-            else:
-                print("Completed.")
-                break
-
-        # open Autoshow menu
-        FindImage("Autoshow.png", 0.75)
-        pyautogui.press("left", presses=3, interval=0.05)
-        pyautogui.press("right")
-        pyautogui.press("enter")
-
-        # wait for the menu to load
-        time.sleep(0.5)
-        FindImage("Esc.png", 0.75, interval=0.1)
-
-        # move to "Peel" section
-        time.sleep(0.5)
-        pyautogui.press("backspace") # open search window
-        # focus on the search window. if not doing this, scrolling will work weirdly
-        pyautogui.moveTo(1, 1)
-        pyautogui.mouseDown()
-        pyautogui.mouseUp()
-        
-        location = FindImage("Peel.png", 0.9, scroll=-5)
-        pyautogui.moveTo(location)
-        pyautogui.press("enter")
-
-        # validate that the Peel Trident is selected
-        time.sleep(0.5)
-        FindImage("Trident.png", 0.9, interval=0.1)
-        # buy Trident
-        pyautogui.press("enter")
-
-        # wait for the select design menu to load
-        time.sleep(0.1)
-        FindImage("Esc.png", 0.75)
-
-        time.sleep(0.5)
-        pyautogui.press('y') # enter the color menu
-        time.sleep(0.5)
-        pyautogui.press("enter") # select default color
-        time.sleep(0.5)
-        pyautogui.press("enter") # confirm color
-        time.sleep(0.5)
-        pyautogui.press("enter") # confirm purchase
-
-        # wait for the Forza Vista to load
-        time.sleep(0.5)
-        FindImage("Esc.png", 0.75, interval=0.1)
-        # exit Forza Vista
-        time.sleep(1)
-        pyautogui.press("esc") # back to the Autoshow menu
-
-        # wait for the Autoshow menu to load
-        time.sleep(0.5)
-        FindImage("Esc.png", 0.75, interval=0.1)
-        # enter the Upgrade & Tuning menu
-        time.sleep(0.5)
-        pyautogui.press("pagedown")
-        pyautogui.press("left")
-        pyautogui.press("enter")
-        # wait for the Upgrade & Tuning menu to load
-        time.sleep(0.5)
-        FindImage("Esc.png", 0.75, interval=0.1)
-        """ pyautogui.press("enter") # discard "New Upgrades Available" popup """
-        # enter Car Mastery menu
-        time.sleep(0.5)
-        pyautogui.press("right", presses=2, interval=0.05)
-        pyautogui.press("down")
-        pyautogui.press("enter")
-
-        # unlock perks
-        time.sleep(0.5)
-        is_unlocked = UnlockPerk() # unlock first perk
-        if is_unlocked == False:
-            print("No skill point left.")
-            break
-
-        time.sleep(0.5)
-        pyautogui.press("right")
-        is_unlocked = UnlockPerk() # unlock second perk
-        if is_unlocked == False:
-            print("No skill point left.")
-            break
-
-        time.sleep(0.5)
-        pyautogui.press("right")
-        is_unlocked = UnlockPerk() # unlock third perk
-        if is_unlocked == False:
-            print("No skill point left.")
-            break
-
-        time.sleep(0.5)
-        pyautogui.press("up")
-        is_unlocked = UnlockPerk() # unlock fourth perk
-        if is_unlocked == False:
-            print("No skill point left.")
-            break
-
-        time.sleep(0.5)
-        pyautogui.press("right")
-        is_unlocked = UnlockPerk() # unlock last perk
-        if is_unlocked == False:
-            print("No skill point left.")
-            break
-
-        time.sleep(0.5)
-        pyautogui.press("esc") # back to Upgrades & Tuning menu
-
-        time.sleep(0.5)
-        FindImage("Esc.png", 0.75, interval=0.1)
-        time.sleep(0.1)
-        pyautogui.press("esc") # back to Garage menu
-
-        time.sleep(0.5)
-        FindImage("Esc.png", 0.75, interval=0.1)
-        time.sleep(0.1)
-        pyautogui.press("pageup") # back to Buy & Sell menu
 
     interrupt_event.set()
 

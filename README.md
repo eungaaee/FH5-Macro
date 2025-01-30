@@ -5,9 +5,9 @@ This project provides a macro to automate the process of earning skill points an
 
 ## Features
 - Automates skill point farming (in EventLab)
-- Automates wheelspin farming (Peel Trident Perk)
+- Automates forzathon point farming (BMW M5 1995 or Lexus SC300 or Jaguar E-type Perk)
+- ~~Automates wheelspin farming (Peel Trident Perk)~~
   - The Peel Trident's skill point tree was nerfed one week after I started using this script. :(
-  - But You can earn forzathon points where can be used to get a backstage pass with this script.
 - Automates gift dropping
 
 ## How to use
@@ -15,6 +15,9 @@ This project provides a macro to automate the process of earning skill points an
 1. Enter your Farming EventLab. (145 828 346 or Search the GamerTag "KarmaDriving")
 2. In the "Start Race Event Button" showing menu, Start the macro script.
 3. The macro will automatically start farming.
+### Forzathon Point
+1. In the "Garage" menu, Start the macro script.
+2. The macro will automatically repeat buying the car and unlocking perks.
 ### Wheelspin
 1. In the "Garage" menu, Start the macro script.
 2. The macro will automatically repeat buying a Peel Trident and unlocking perks.
