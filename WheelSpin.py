@@ -64,6 +64,7 @@ def Macro(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
             location = FindImage("Peel.png", 0.9, scroll=-5)
             pyautogui.moveTo(location)
             pyautogui.press("enter")
+            pyautogui.moveTo(1, 1) # move the cursor to the top left corner to prevent interference
             # there is a bug in the game that the Peel section is not selected properly at the first time if it is too far from the opened section
             # so, select the Peel section again
             time.sleep(0.25)

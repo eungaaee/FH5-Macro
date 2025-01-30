@@ -6,6 +6,8 @@ This project provides a macro to automate the process of earning skill points an
 ## Features
 - Automates skill point farming (in EventLab)
 - Automates wheelspin farming (Peel Trident Perk)
+  - The Peel Trident's skill point tree was nerfed one week after I started using this script. :(
+  - But You can earn forzathon points where can be used to get a backstage pass with this script.
 - Automates gift dropping
 
 ## How to use
