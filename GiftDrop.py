@@ -19,7 +19,26 @@ def FindImage(file_name, confidence, interval=0, limit=0, scroll=0):
     
     return None
 
-def Macro(interrupt_event):
+def Macro(interrupt_event, car="Peel"):
+    # filter so that only the car want to gift is displayed
+    pyautogui.press('y') # open filter menu
+    time.sleep(0.25)
+
+    if car == "Peel":
+        pass
+    elif car == "BMW":
+        pass
+    elif car == "Lexus":
+        pass
+    elif car == "Jaguar":
+        pyautogui.press("enter") # filter by Favorites
+        pyautogui.press("down", presses=4, interval=0.05) # filter by Performance Class 'C'
+        pyautogui.press("enter")
+        pyautogui.press("down", presses=24, interval=0.05) # filter by Car Type "Rare Classics"
+        pyautogui.press("enter")
+
+    pyautogui.press("esc") # close filter menu
+
     count = 0
     while interrupt_event.is_set() == False:
         FindImage("GiftSelect.png", 0.75, interval=0.1) # wait for the gift menu screen open
@@ -29,13 +48,18 @@ def Macro(interrupt_event):
         pyautogui.mouseDown()
         pyautogui.mouseUp()
 
-        # select "Peel"
-        peel_location = FindImage("Peel.png", 0.9, interval=0.1, limit=5, scroll=5) # scroll down to find the "Peel"
-        if peel_location != None:
-            pyautogui.moveTo(peel_location)
+        location = None
+        if car == "Peel":
+            # find "Peel"
+            location = FindImage("Peel.png", 0.9, interval=0.1, limit=5, scroll=5) # scroll down to find the "Peel"
+        elif car == "Jaguar":
+            # find "Jaguar"
+            location = FindImage("Jaguar.png", 0.9, interval=0.1, limit=5, scroll=5) # scroll down to find the "Jaguar"
+        if location != None:
+            pyautogui.moveTo(location)
             pyautogui.press("enter")
         else:
-            print(f"A total of {count} cars have been gifted.")
+            print(f"{count} of {car} have been gifted.")
             pyautogui.press("esc")
             interrupt_event.set()
             break

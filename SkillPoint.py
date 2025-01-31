@@ -17,7 +17,8 @@ def Macro(interrupt_event, loop=100): # 10sp * 100 = 1000sp
     current_loop = 0
     while interrupt_event.is_set() == False:
         if (loop == 0): # set loop 0 to run infinitely
-            pass
+            current_loop += 1
+            print(f"{current_loop} / INF")
         else:
             if (current_loop < loop):
                 current_loop += 1
@@ -38,7 +39,7 @@ def Macro(interrupt_event, loop=100): # 10sp * 100 = 1000sp
         time.sleep(2)
         pyautogui.keyDown('w')
 
-        FindImage("Restart.png", 0.75, interval=0.1) # wait for the restart button
+        FindImage("X.png", 0.75, interval=0.1) # wait for the restart button
         pyautogui.keyUp('w')
         pyautogui.press('x') # restart event
         time.sleep(0.25)

@@ -207,7 +207,8 @@ def Macro_Autoshow(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
     current_loop = 0
     while interrupt_event.is_set() == False:
         if (loop == 0): # set loop 0 to run infinitely
-            pass
+            current_loop += 1
+            print(f"{current_loop} / INF")
         else:
             print(f"{current_loop} / {loop}")
             if (current_loop < loop):

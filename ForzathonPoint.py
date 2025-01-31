@@ -30,7 +30,8 @@ def Macro(interrupt_event, loop=999, car="Jaguar"): # BMW and Lexus: 999sp / 5sp
     current_loop = 0
     while interrupt_event.is_set() == False:
         if (loop == 0): # set loop 0 to run infinitely
-            pass
+            current_loop += 1
+            print(f"{current_loop} / INF")
         else:
             if (current_loop < loop):
                 current_loop += 1
