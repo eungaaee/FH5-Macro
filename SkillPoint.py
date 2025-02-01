@@ -1,19 +1,18 @@
 import pyautogui
 import keyboard
-import time
-import threading
+import asyncio
 
-def FindImage(file_name, confidence, interval=0):
+async def FindImage(file_name, confidence, interval=0):
     while True:
         if (interval > 0):
-            time.sleep(interval)
+            await asyncio.sleep(interval)
         try:
             location = pyautogui.locateOnScreen(f"./Images/{file_name}", grayscale=True, confidence=confidence)
             return location
         except pyautogui.ImageNotFoundException:
             continue
 
-def Macro(interrupt_event, loop=100): # 10sp * 100 = 1000sp
+async def Macro(interrupt_event, loop=100): # 10sp * 100 = 1000sp
     current_loop = 0
     while interrupt_event.is_set() == False:
         if (loop == 0): # set loop 0 to run infinitely
@@ -28,7 +27,7 @@ def Macro(interrupt_event, loop=100): # 10sp * 100 = 1000sp
                 interrupt_event.set()
                 break
 
-        startraceevent_location = FindImage("StartRaceEvent.png", 0.75, interval=0.1)
+        startraceevent_location = await FindImage("StartRaceEvent.png", 0.75, interval=0.1)
         pyautogui.moveTo(startraceevent_location)
         pyautogui.mouseDown()
         pyautogui.mouseUp()
@@ -36,41 +35,30 @@ def Macro(interrupt_event, loop=100): # 10sp * 100 = 1000sp
         pyautogui.press("up")
         pyautogui.press("enter") """
 
-        time.sleep(2)
+        await asyncio.sleep(2)
         pyautogui.keyDown('w')
 
-        FindImage("X.png", 0.75, interval=0.1) # wait for the restart button
+        await FindImage("X.png", 0.75, interval=0.1) # wait for the restart button
         pyautogui.keyUp('w')
         pyautogui.press('x') # restart event
-        time.sleep(0.25)
+        await asyncio(0.25)
         pyautogui.press("enter") # confirm restart
 
-def Stopper(interrupt_event):
-    while interrupt_event.is_set() == False:
-        if keyboard.is_pressed("F2"):
-            interrupt_event.set()
-            print("Script will be stopped after the current loop.")
-            break
-        time.sleep(0.1)
+async def Stopper(interrupt_event):
+    await asyncio.get_event_loop().run_in_executor(None, keyboard.wait, "F2") # run the blocking function in a separate thread
+    interrupt_event.set()
+    print("Script will be stopped after the current loop.")
 
-def main():
+async def main():
     # wait for F1 key to start
     print("Press F1 to start the script.")
-    keyboard.wait("F1")
+    await asyncio.get_event_loop().run_in_executor(None, keyboard.wait, "F1") # run the blocking function in a separate thread
     print("Script started.")
 
-    interrupt_event = threading.Event()
-
-    macro_thread = threading.Thread(target=Macro, args=(interrupt_event, ))
-    stopper_thread = threading.Thread(target=Stopper, args=(interrupt_event, ))
-
-    macro_thread.start()
-    stopper_thread.start()
-
-    macro_thread.join()
-    stopper_thread.join()
+    interrupt_event = asyncio.Event()
+    await asyncio.gather(Macro(interrupt_event), Stopper(interrupt_event))
 
     print("Exiting the script.")
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())

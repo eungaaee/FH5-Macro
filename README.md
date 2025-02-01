@@ -12,7 +12,7 @@ This project provides a macro to automate the process of earning skill points, f
 - Automates gift dropping
 
 ## How to use
-> Watch the entire guide here [@NiceDriving](https://www.youtube.com/results?search_query=NiceDriving)  
+> Watch the entire guide here [@NiceDriving](https://www.youtube.com/@NiceDriving/videos)  
 > He made all of these farming methods.
 ### Skill Point
 1. Enter your Farming EventLab. (145 828 346 or Search the GamerTag "KarmaDriving")

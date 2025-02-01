@@ -1,12 +1,11 @@
 import pyautogui
 import keyboard
-import time
-import threading
+import asyncio
 
-def FindImage(file_name, confidence, interval=0, limit=0, scroll=0):
+async def FindImage(file_name, confidence, interval=0, limit=0, scroll=0):
     for _ in iter(int, 1) if limit == 0 else range(limit):
         if (interval > 0):
-            time.sleep(interval)
+            await asyncio.sleep(interval)
         try:
             location = pyautogui.locateOnScreen(f"./Images/{file_name}", grayscale=True, confidence=confidence)
             return location
@@ -19,10 +18,10 @@ def FindImage(file_name, confidence, interval=0, limit=0, scroll=0):
     
     return None
 
-def Macro(interrupt_event, car="Peel"):
+async def Macro(interrupt_event, car="Peel"):
     # filter so that only the car want to gift is displayed
     pyautogui.press('y') # open filter menu
-    time.sleep(0.25)
+    await asyncio.sleep(0.25)
 
     if car == "Peel":
         pass
@@ -41,7 +40,7 @@ def Macro(interrupt_event, car="Peel"):
 
     count = 0
     while interrupt_event.is_set() == False:
-        FindImage("GiftSelect.png", 0.75, interval=0.1) # wait for the gift menu screen open
+        await FindImage("GiftSelect.png", 0.75, interval=0.1) # wait for the gift menu screen open
         pyautogui.press("backspace") # open search window
         # focus on the search window. if not doing this, scrolling will work weirdly
         pyautogui.moveTo(1, 1)
@@ -51,10 +50,10 @@ def Macro(interrupt_event, car="Peel"):
         location = None
         if car == "Peel":
             # find "Peel"
-            location = FindImage("Peel.png", 0.9, interval=0.1, limit=5, scroll=5) # scroll down to find the "Peel"
+            location = await FindImage("Peel.png", 0.9, interval=0.1, limit=5, scroll=5) # scroll down to find the "Peel"
         elif car == "Jaguar":
             # find "Jaguar"
-            location = FindImage("Jaguar.png", 0.9, interval=0.1, limit=5, scroll=5) # scroll down to find the "Jaguar"
+            location = await FindImage("Jaguar.png", 0.9, interval=0.1, limit=5, scroll=5) # scroll down to find the "Jaguar"
         if location != None:
             pyautogui.moveTo(location)
             pyautogui.press("enter")
@@ -65,54 +64,43 @@ def Macro(interrupt_event, car="Peel"):
             break
 
         # send gift
-        time.sleep(0.4)
+        await asyncio.sleep(0.4)
         pyautogui.press("enter") # select the Peel car
-        time.sleep(0.4)
+        await asyncio.sleep(0.4)
         pyautogui.press("enter") # gift to
-        time.sleep(0.4)
+        await asyncio.sleep(0.4)
         pyautogui.press("enter") # gift message
-        time.sleep(0.4)
+        await asyncio.sleep(0.4)
         pyautogui.press("down", presses=2, interval=0.05) # select "UNSIGNED"
         pyautogui.press("enter") # gift from
-        time.sleep(0.4)
+        await asyncio.sleep(0.4)
         pyautogui.press("enter") # your gift
-        """ time.sleep(0.4)
+        """ await asyncio.sleep(0.4)
         pyautogui.press("down") # confirm warning message
         pyautogui.press("enter")
-        time.sleep(0.4) """
+        await asyncio.sleep(0.4) """
 
-        FindImage("GiftSent.png", 0.9, interval=0.1) # wait for the gift to be sent
+        await FindImage("GiftSent.png", 0.9, interval=0.1) # wait for the gift to be sent
         pyautogui.press("enter") # gift sent
 
         count += 1
         print(f"Gift sent. Count: {count}")
 
-def Stopper(interrupt_event):
-    while interrupt_event.is_set() == False:
-        if keyboard.is_pressed("F2"):
-            interrupt_event.set()
-            print("Script will be stopped after the current loop.")
-            break
-        time.sleep(0.1)
+async def Stopper(interrupt_event):
+    await asyncio.get_event_loop().run_in_executor(None, keyboard.wait, "F2") # run the blocking function in a separate thread
+    interrupt_event.set()
+    print("Script will be stopped after the current loop.")
 
-def main():
+async def main():
     # wait for F1 key to start
     print("Press F1 to start the script.")
-    keyboard.wait("F1")
+    await asyncio.get_event_loop().run_in_executor(None, keyboard.wait, "F1") # run the blocking function in a separate thread
     print("Script started.")
 
-    interrupt_event = threading.Event()
-
-    macro_thread = threading.Thread(target=Macro, args=(interrupt_event, ))
-    stopper_thread = threading.Thread(target=Stopper, args=(interrupt_event, ))
-
-    macro_thread.start()
-    stopper_thread.start()
-
-    macro_thread.join()
-    stopper_thread.join()
+    interrupt_event = asyncio.Event()
+    await asyncio.gather(Macro(interrupt_event), Stopper(interrupt_event))
 
     print("Exiting the script.")
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())
