@@ -2,6 +2,7 @@ import pyautogui
 import keyboard
 import asyncio
 
+
 async def FindImage(file_name, confidence, interval=0):
     while True:
         if (interval > 0):
@@ -11,6 +12,7 @@ async def FindImage(file_name, confidence, interval=0):
             return location
         except pyautogui.ImageNotFoundException:
             continue
+
 
 async def Macro(interrupt_event, loop=100): # 10sp * 100 = 1000sp
     current_loop = 0
@@ -44,10 +46,12 @@ async def Macro(interrupt_event, loop=100): # 10sp * 100 = 1000sp
         await asyncio(0.25)
         pyautogui.press("enter") # confirm restart
 
+
 async def Stopper(interrupt_event):
     await asyncio.get_event_loop().run_in_executor(None, keyboard.wait, "F2") # run the blocking function in a separate thread
     interrupt_event.set()
     print("Script will be stopped after the current loop.")
+
 
 async def main():
     # wait for F1 key to start
@@ -59,6 +63,7 @@ async def main():
     await asyncio.gather(Macro(interrupt_event), Stopper(interrupt_event))
 
     print("Exiting the script.")
+
 
 if __name__ == "__main__":
     asyncio.run(main())

@@ -2,6 +2,7 @@ import pyautogui
 import keyboard
 import asyncio
 
+
 async def FindImage(file_name, confidence, interval=0, limit=0, scroll=0):
     for _ in iter(int, 1) if limit == 0 else range(limit):
         if (interval > 0):
@@ -18,10 +19,12 @@ async def FindImage(file_name, confidence, interval=0, limit=0, scroll=0):
     
     return None
 
+
 async def UnlockPerk():
     pyautogui.press("enter") # unlock perk
     found = await FindImage("NoSkillPoint.png", 0.9, interval=0.5, limit=1)
     return True if found == None else False
+
 
 # buy in Car Collection
 async def Macro(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
@@ -202,6 +205,7 @@ async def Macro(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
 
     interrupt_event.set()
 
+
 # buy in Autoshow
 async def Macro_Autoshow(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
     current_loop = 0
@@ -333,10 +337,12 @@ async def Macro_Autoshow(interrupt_event, loop=111): # 999sp / 9sp per car = 111
 
     interrupt_event.set()
 
+
 async def Stopper(interrupt_event):
     await asyncio.get_event_loop().run_in_executor(None, keyboard.wait, "F2") # run the blocking function in a separate thread
     interrupt_event.set()
     print("Script will be stopped after the current loop.")
+
 
 async def main():
     # wait for F1 key to start
@@ -348,6 +354,7 @@ async def main():
     await asyncio.gather(Macro(interrupt_event), Stopper(interrupt_event))
 
     print("Exiting the script.")
+
 
 if __name__ == "__main__":
     asyncio.run(main())
