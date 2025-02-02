@@ -33,6 +33,16 @@ This project provides a macro to automate the process of earning skill points, f
 2. The macro will automatically send all Peel cars.
 > **Warning:** Since it sends all Peel cars, it will also send the Peel P50.  
 > **Note:** If you send the Peel Trident, the recipient can also do the Wheelspin farming since the perks will be restored. Well, that's just the spirit of Horizon, isn't it?
+### Discord Notify Bot
+1. Make your empty bot in [here](https://discord.com/developers).
+2. Make the new server and invite the bot.
+3. Add your token in `/src/config.py`
+
+    ```python
+    # /src/config.py
+    DISCORD_BOT_TOKEN = "your_token"
+    ```
+4. Run any macro script.
 
 ## Contributing
 Contributions are welcome! Please fork this repository and submit a pull request.
