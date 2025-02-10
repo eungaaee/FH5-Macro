@@ -19,14 +19,21 @@ async def FindImage(file_name, confidence, interval=0, limit=0):
     return None
 
 
-async def Macro(interrupt_event):
+async def Macro(interrupt_event, advanced_search=False):
     pyautogui.moveTo(1, 1) # move the cursor to the top left corner to prevent interference
 
     while interrupt_event.is_set() == False:
         pyautogui.press("enter")
         await asyncio.sleep(0.15)
+        if advanced_search:
+            pyautogui.press("x")
+            await asyncio.sleep(0.15)
         pyautogui.press("enter")
-        await asyncio.sleep(0.65)
+
+        if advanced_search: # advanced search takes longer to load
+            await asyncio.sleep(0.8)
+        else:
+            await asyncio.sleep(0.65)
 
         if await FindImage("Y.png", 0.9, interval=0.1, limit=1) != None: # if search result is not empty
             # spam the Y key
