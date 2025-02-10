@@ -66,10 +66,7 @@ async def Macro(interrupt_event, loop=999, car="Jaguar"): # BMW and Lexus: 999sp
             # open search window
             await asyncio.sleep(0.1)
             pyautogui.press("backspace")
-            # focus on the search window. if not doing this, scrolling will work weirdly
-            pyautogui.moveTo(1, 1)
-            pyautogui.mouseDown()
-            pyautogui.mouseUp()
+            pyautogui.moveTo(1, 1) # move the cursor to the top left corner to prevent interference
             # select "car" Section
             location = await FindImage(f"{car}.png" , 0.9, interval=0.1, scroll=5)
             pyautogui.moveTo(location)

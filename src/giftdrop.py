@@ -47,10 +47,7 @@ async def Macro(interrupt_event, car="Peel"):
     while interrupt_event.is_set() == False:
         await FindImage("GiftSelect.png", 0.75, interval=0.1) # wait for the gift menu screen open
         pyautogui.press("backspace") # open search window
-        # focus on the search window. if not doing this, scrolling will work weirdly
-        pyautogui.moveTo(1, 1)
-        pyautogui.mouseDown()
-        pyautogui.mouseUp()
+        pyautogui.moveTo(1, 1) # move the cursor to the top left corner to prevent interference
 
         location = None
         if car == "Peel":

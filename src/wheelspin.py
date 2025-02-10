@@ -66,10 +66,7 @@ async def Macro(interrupt_event, loop=111): # 999sp / 9sp per car = 111 cars
             # open search window
             await asyncio.sleep(0.1)
             pyautogui.press("backspace")
-            # focus on the search window. if not doing this, scrolling will work weirdly
-            pyautogui.moveTo(1, 1)
-            pyautogui.mouseDown()
-            pyautogui.mouseUp()
+            pyautogui.moveTo(1, 1) # move the cursor to the top left corner to prevent interference
             # select "Peel"
             location = await FindImage("Peel.png", 0.9, interval=0.1, scroll=-5)
             pyautogui.moveTo(location)
@@ -255,9 +252,7 @@ async def Macro_Autoshow(interrupt_event, loop=111): # 999sp / 9sp per car = 111
         await asyncio.sleep(0.5)
         pyautogui.press("backspace") # open search window
         # focus on the search window. if not doing this, scrolling will work weirdly
-        pyautogui.moveTo(1, 1)
-        pyautogui.mouseDown()
-        pyautogui.mouseUp()
+        pyautogui.moveTo(1, 1) # move the cursor to the top left corner to prevent interference
         
         location = await FindImage("Peel.png", 0.9, scroll=-5)
         pyautogui.moveTo(location)

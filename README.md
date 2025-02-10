@@ -42,6 +42,12 @@ This project provides a macro to automate the process of earning skill points, f
 > [!NOTE]
 > If you send the Peel Trident, the recipient can also do the Wheelspin farming since the perks will be restored. Well, that's just the spirit of Horizon, isn't it?
 
+### AuctionHouse Sniper
+1. Be in solo mode, stock Peel Trident and main festival site.
+2. Open the Search menu in the Auction House and change the settings to your desired configuration.
+3. Confirm your configuration and back out from the search result.
+4. Start the macro script.
+
 ### Discord Notify Bot
 1. Make your empty bot in [here](https://discord.com/developers).
 2. Make the new server and invite the bot.
