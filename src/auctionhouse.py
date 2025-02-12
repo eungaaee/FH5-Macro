@@ -35,10 +35,11 @@ async def Macro(interrupt_event, advanced_search=False):
         else:
             await asyncio.sleep(0.65)
 
-        if await FindImage("Y.png", 0.9, interval=0.1, limit=1) != None: # if search result is not empty
+        if await FindImage("Y.png", 0.9, limit=1) != None: # if search result is not empty
             # spam the Y key
-            while await FindImage("Y.png", 0.9, interval=0.1, limit=1) != None:
+            while await FindImage("Y.png", 0.9, limit=1) != None:
                 pyautogui.press("y")
+                await asyncio.sleep(0.01)
 
             # attempt to buyout
             pyautogui.press("down")
