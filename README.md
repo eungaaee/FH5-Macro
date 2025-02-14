@@ -46,7 +46,7 @@ This project provides a macro to automate the process of earning skill points, f
 1. Be in solo mode, stock Peel Trident and main festival site.
 2. Open the Search menu in the Auction House and change the settings to your desired configuration.
 3. Confirm your configuration and back out from the search result.
-4. Start the macro script.
+4. Configure the script (advanced search, half-auto and etc.) and start it.
 
 ### Discord Notify Bot
 1. Make your empty bot in [here](https://discord.com/developers).
