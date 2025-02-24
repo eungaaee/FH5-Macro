@@ -51,31 +51,32 @@ async def Macro(interrupt_event, advanced_search=False, halfauto=False, halfauto
 
     while interrupt_event.is_set() == False:
         pyautogui.press("enter")
-        await asyncio.sleep(0.15)
+        await asyncio.sleep(0.13)
         if advanced_search:
-            pyautogui.press("x")
-            await asyncio.sleep(0.15)
+            pyautogui.press('x')
+            await asyncio.sleep(0.13)
         pyautogui.press("enter")
 
         if advanced_search: # advanced search takes longer to load
-            await asyncio.sleep(0.8)
+            await asyncio.sleep(0.78)
         else:
-            await asyncio.sleep(0.65)
+            await asyncio.sleep(0.64)
 
         if halfauto:
             pyautogui.press("down", presses=halfauto_scroll, interval=0.01) # scroll down to the fresh 59m auctions
             if await asyncio.to_thread(DetectBuyKey):
-                pyautogui.press("y")
+                pyautogui.press('y')
                 await asyncio.sleep(0.1)
                 await Buyout()
             else:
                 pass
         else:
-            if await FindImage("Y.png", 0.9, limit=1) != None: # if search result is not empty
+            if await FindImage("Y.png", 0.75, limit=1) != None: # if search result is not empty
                 # spam the Y key
-                while await FindImage("Y.png", 0.9, limit=1) != None:
-                    pyautogui.press("y")
-                    await asyncio.sleep(0.01)
+                while True:
+                    pyautogui.press('y')
+                    if await FindImage("Y.png", 0.75, limit=1) == None:
+                        break
                 await Buyout()
 
         pyautogui.press("esc")
