@@ -51,14 +51,14 @@ async def Macro(interrupt_event, advanced_search=False, halfauto=False, halfauto
 
     while interrupt_event.is_set() == False:
         pyautogui.press("enter")
-        await asyncio.sleep(0.13)
+        await asyncio.sleep(0.14)
         if advanced_search:
             pyautogui.press('x')
-            await asyncio.sleep(0.13)
+            await asyncio.sleep(0.14)
         pyautogui.press("enter")
 
         if advanced_search: # advanced search takes longer to load
-            await asyncio.sleep(0.78)
+            await asyncio.sleep(0.8)
         else:
             await asyncio.sleep(0.64)
 
