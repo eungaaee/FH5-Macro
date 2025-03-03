@@ -77,6 +77,7 @@ async def Macro(interrupt_event, advanced_search=False, halfauto=False, halfauto
                     pyautogui.press('y')
                     if await FindImage("Y.png", 0.75, limit=1) == None:
                         break
+                await asyncio.sleep(0.05)
                 await Buyout()
 
         pyautogui.press("esc")
