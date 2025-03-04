@@ -6,17 +6,14 @@ import pyautogui
 import keyboard
 
 
-async def FindImage(file_name, confidence, interval=0, limit=0):
-    for _ in iter(int, 1) if limit == 0 else range(limit):
-        try:
-            location = await asyncio.to_thread(pyautogui.locateOnScreen, f"./Images/{file_name}", grayscale=True, confidence=confidence) # using the confidence parameter will force to use _locateAll_opencv() instead of _locateAll_pillow()
-            return location
-        except pyautogui.ImageNotFoundException:
-            if (interval > 0):
-                await asyncio.sleep(interval)
-            continue
-    
-    return None
+y_icon_location = (370, 1000) # A (x, y) of the 'Y' icon's white area
+enter_icon_location = (85, 1000) # A (x, y) of the "Enter" icon's white area
+color_white = (255, 255, 255)
+
+
+async def GetPixelColor(x, y):
+    color = await asyncio.to_thread(pyautogui.pixel, x, y)
+    return color
 
 
 async def Buyout():
@@ -27,13 +24,14 @@ async def Buyout():
     pyautogui.press("enter")
 
     # wait for the Buyout message and press Enter
-    await asyncio.sleep(0.2)
-    await FindImage("Enter.png", 0.9, interval=0.1)
+    await asyncio.sleep(1)
+    while sum(await GetPixelColor(*enter_icon_location)) < sum(color_white) * 0.75:
+        await asyncio.sleep(0.1)
     pyautogui.press("enter")
 
-    await asyncio.sleep(0.2)
+    await asyncio.sleep(0.1)
     pyautogui.press("esc")
-    await asyncio.sleep(0.2)
+    await asyncio.sleep(0.1)
 
 
 def DetectBuyKey():
@@ -58,9 +56,9 @@ async def Macro(interrupt_event, advanced_search=False, halfauto=False, halfauto
         pyautogui.press("enter")
 
         if advanced_search: # advanced search takes longer to load
-            await asyncio.sleep(0.8)
+            await asyncio.sleep(0.9)
         else:
-            await asyncio.sleep(0.64)
+            await asyncio.sleep(0.72)
 
         if halfauto:
             pyautogui.press("down", presses=halfauto_scroll, interval=0.01) # scroll down to the fresh 59m auctions
@@ -68,17 +66,17 @@ async def Macro(interrupt_event, advanced_search=False, halfauto=False, halfauto
                 pyautogui.press('y')
                 await asyncio.sleep(0.1)
                 await Buyout()
-            else:
-                pass
         else:
-            if await FindImage("Y.png", 0.75, limit=1) != None: # if search result is not empty
+            if sum(await GetPixelColor(*y_icon_location)) >= sum(color_white) * 0.75: # if search result is not empty
                 # spam the Y key
                 while True:
                     pyautogui.press('y')
-                    if await FindImage("Y.png", 0.75, limit=1) == None:
+                    if sum(await GetPixelColor(*y_icon_location)) < sum(color_white) * 0.75:
+                        await asyncio.sleep(0.1)
+                        await Buyout()
                         break
-                await asyncio.sleep(0.05)
-                await Buyout()
+                    else:
+                        await asyncio.sleep(0.05)
 
         pyautogui.press("esc")
         await asyncio.sleep(0.6)

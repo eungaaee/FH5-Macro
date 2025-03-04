@@ -1,7 +1,7 @@
-# Forza Horizon 5 Skill Point, Forzathon Point, CR/XP, Wheelspin Macro
+# Forza Horizon 5 Skill Point, Forzathon Point, CR/XP, Wheelspin, AuctionHouse Sniping Macro
 
 ## Introduction
-This project provides a macro to automate the process of earning skill points, forzathon points, CR/XP and wheelspins in Forza Horizon 5.
+This project provides a macro to automate the process of earning skill points, forzathon points, CR/XP, wheelspins, and auction house sniping in Forza Horizon 5.
 
 ## Features
 - Automates skill point farming (in EventLab)
@@ -10,11 +10,12 @@ This project provides a macro to automate the process of earning skill points, f
   - The Peel Trident's skill point tree was nerfed one week after I started using this script. :(
 - half-auto CR/XP farming
 - Automates gift dropping
+- Auction House Sniping
 
 ## How to use
+### Skill Point
 > [!TIP]
 > Watch the entire guide here [@NiceDriving](https://www.youtube.com/@NiceDriving/videos)  
-### Skill Point
 1. Enter your Farming EventLab. (145 828 346 or Search the GamerTag "KarmaDriving")
 2. In the "Start Race Event Button" showing menu, Start the macro script.
 3. The macro will automatically start farming.
@@ -47,6 +48,8 @@ This project provides a macro to automate the process of earning skill points, f
 2. Open the Search menu in the Auction House and change the settings to your desired configuration.
 3. Confirm your configuration and back out from the search result.
 4. Configure the script (advanced search, half-auto and etc.) and start it.
+
+\* Tested in FHD 120FPS. You can change the (x, y) if you use another resolution.
 
 ### Discord Notify Bot
 1. Make your empty bot in [here](https://discord.com/developers).
