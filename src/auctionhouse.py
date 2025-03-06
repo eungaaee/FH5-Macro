@@ -1,6 +1,5 @@
 import asyncio
-
-# from modules.notifybot import ready_event, send_message, start_bot, close_bot
+import time
 
 import pyautogui
 import keyboard
@@ -68,6 +67,7 @@ async def Macro(interrupt_event, advanced_search=False, halfauto=False, halfauto
                 await Buyout()
         else:
             if sum(await GetPixelColor(*y_icon_location)) >= sum(color_white) * 0.75: # if search result is not empty
+                print(time.strftime("[%Y-%m-%d / %H:%M:%S] Found!"))
                 # spam the Y key
                 while True:
                     pyautogui.press('y')
@@ -88,28 +88,18 @@ async def Stopper(interrupt_event):
         if await asyncio.to_thread(keyboard.is_pressed, "F2"): # run the blocking function in a separate thread
             interrupt_event.set()
             print("Script will be stopped after the current loop.")
-            # await send_message("Script will be stopped after the current loop.")
 
 
 async def main():
-    """ # start the bot
-    bot_task = asyncio.create_task(start_bot())
-    await ready_event.wait()  # wait until the bot is ready """
-
     # wait for F1 key to start
     print("Script ready. Press F1 to start the script.")
-    # await send_message("Script ready.")
     await asyncio.to_thread(keyboard.wait, "F1") # run the blocking function in a separate thread
     print("Script started.")
-    # await send_message("Script started.")
 
     interrupt_event = asyncio.Event()
     await asyncio.gather(Macro(interrupt_event), Stopper(interrupt_event))
 
     print("Exiting the script.")
-    # await send_message("Exiting the script.")
-
-    # await close_bot()
 
 
 if __name__ == "__main__":
