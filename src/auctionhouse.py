@@ -5,6 +5,7 @@ import pyautogui
 import keyboard
 
 
+slow_mode = False
 y_icon_location = (370, 1000) # A (x, y) of the 'Y' icon's white area
 enter_icon_location = (85, 1000) # A (x, y) of the "Enter" icon's white area
 color_white = (255, 255, 255)
@@ -19,7 +20,7 @@ async def Buyout():
     # attempt to buyout
     pyautogui.press("down")
     pyautogui.press("enter")
-    await asyncio.sleep(0.1)
+    await asyncio.sleep(0.14 if slow_mode else 0.1)
     pyautogui.press("enter")
 
     # wait for the Buyout message and press Enter
@@ -28,9 +29,9 @@ async def Buyout():
         await asyncio.sleep(0.1)
     pyautogui.press("enter")
 
-    await asyncio.sleep(0.1)
+    await asyncio.sleep(0.14 if slow_mode else 0.1)
     pyautogui.press("esc")
-    await asyncio.sleep(0.1)
+    await asyncio.sleep(0.14 if slow_mode else 0.1)
 
 
 def DetectBuyKey():
@@ -48,16 +49,16 @@ async def Macro(interrupt_event, advanced_search=False, halfauto=False, halfauto
 
     while interrupt_event.is_set() == False:
         pyautogui.press("enter")
-        await asyncio.sleep(0.14)
+        await asyncio.sleep(0.18 if slow_mode else 0.14)
         if advanced_search:
             pyautogui.press('x')
-            await asyncio.sleep(0.14)
+            await asyncio.sleep(0.18 if slow_mode else 0.14)
         pyautogui.press("enter")
 
         if advanced_search: # advanced search takes longer to load
-            await asyncio.sleep(0.9)
+            await asyncio.sleep(1)
         else:
-            await asyncio.sleep(0.72)
+            await asyncio.sleep(0.8 if slow_mode else 0.72)
 
         if halfauto:
             pyautogui.press("down", presses=halfauto_scroll, interval=0.01) # scroll down to the fresh 59m auctions
@@ -72,14 +73,14 @@ async def Macro(interrupt_event, advanced_search=False, halfauto=False, halfauto
                 while True:
                     pyautogui.press('y')
                     if sum(await GetPixelColor(*y_icon_location)) < sum(color_white) * 0.75:
-                        await asyncio.sleep(0.1)
+                        await asyncio.sleep(0.12 if slow_mode else 0.1)
                         await Buyout()
                         break
                     else:
                         await asyncio.sleep(0.05)
 
         pyautogui.press("esc")
-        await asyncio.sleep(0.6)
+        await asyncio.sleep(0.7 if slow_mode else 0.6)
 
 
 async def Stopper(interrupt_event):
