@@ -56,7 +56,7 @@ async def Macro(interrupt_event, advanced_search=False, halfauto=False, halfauto
         pyautogui.press("enter")
 
         if advanced_search: # advanced search takes longer to load
-            await asyncio.sleep(1)
+            await asyncio.sleep(1 if slow_mode else 0.9)
         else:
             await asyncio.sleep(0.8 if slow_mode else 0.72)
 
@@ -101,15 +101,6 @@ async def main():
     await asyncio.gather(Macro(interrupt_event), Stopper(interrupt_event))
 
     print("Exiting the script.")
-
-
-def IconLocationFinder(interval=0.5):
-    while True:
-        position = pyautogui.position()
-        print(f"{position} / color {pyautogui.pixel(*position)}")
-        print(f"y_icon_location {y_icon_location} / color {pyautogui.pixel(*y_icon_location)}")
-        print(f"enter_icon_location {enter_icon_location} / color {pyautogui.pixel(*enter_icon_location)}\n\n")
-        time.sleep(interval)
 
 
 if __name__ == "__main__":
