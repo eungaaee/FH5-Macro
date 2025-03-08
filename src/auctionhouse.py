@@ -103,5 +103,14 @@ async def main():
     print("Exiting the script.")
 
 
+def IconLocationFinder(interval=0.5):
+    while True:
+        position = pyautogui.position()
+        print(f"{position} / color {pyautogui.pixel(*position)}")
+        print(f"y_icon_location {y_icon_location} / color {pyautogui.pixel(*y_icon_location)}")
+        print(f"enter_icon_location {enter_icon_location} / color {pyautogui.pixel(*enter_icon_location)}\n\n")
+        time.sleep(interval)
+
+
 if __name__ == "__main__":
     asyncio.run(main())
