@@ -80,7 +80,7 @@ async def Macro(interrupt_event, advanced_search=False, halfauto=False, halfauto
                         await asyncio.sleep(0.05)
 
         pyautogui.press("esc")
-        await asyncio.sleep(0.7 if slow_mode else 0.6)
+        await asyncio.sleep(0.72 if slow_mode else 0.6)
 
 
 async def Stopper(interrupt_event):
