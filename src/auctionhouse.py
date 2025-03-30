@@ -7,7 +7,9 @@ import keyboard
 
 y_icon_location = (370, 1000) # A (x, y) of the 'Y' icon's white area
 enter_icon_location = (85, 1000) # A (x, y) of the "Enter" icon's white area
+left_bottom_location = (0, pyautogui.size().height - 1)
 color_white = (255, 255, 255)
+color_black = (0, 0, 0)
 
 
 async def GetPixelColor(x, y):
@@ -22,11 +24,15 @@ async def Buyout(slow_mode):
     await asyncio.sleep(0.14 if slow_mode else 0.1)
     pyautogui.press("enter")
 
-    # wait for the Buyout message and press Enter
     await asyncio.sleep(1)
-    while sum(await GetPixelColor(*enter_icon_location)) < sum(color_white) * 0.75:
-        await asyncio.sleep(0.1)
-    pyautogui.press("enter")
+    if sum(await GetPixelColor(*left_bottom_location)) > sum(color_black):
+        pyautogui.press("esc")
+        await asyncio.sleep(0.14 if slow_mode else 0.1)
+        pyautogui.press("esc")
+    else:
+        while sum(await GetPixelColor(*enter_icon_location)) < sum(color_white) * 0.75:
+            await asyncio.sleep(0.1)
+        pyautogui.press("enter")
 
     await asyncio.sleep(0.14 if slow_mode else 0.1)
     pyautogui.press("esc")
