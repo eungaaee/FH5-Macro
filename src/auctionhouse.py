@@ -5,7 +5,6 @@ import pyautogui
 import keyboard
 
 
-slow_mode = False
 y_icon_location = (370, 1000) # A (x, y) of the 'Y' icon's white area
 enter_icon_location = (85, 1000) # A (x, y) of the "Enter" icon's white area
 color_white = (255, 255, 255)
@@ -16,7 +15,7 @@ async def GetPixelColor(x, y):
     return color
 
 
-async def Buyout():
+async def Buyout(slow_mode):
     # attempt to buyout
     pyautogui.press("down")
     pyautogui.press("enter")
@@ -43,41 +42,42 @@ def DetectBuyKey():
             return False
 
 
-async def Macro(interrupt_event, advanced_search=False, halfauto=False, halfauto_scroll=60):
+async def Macro(interrupt_event, advanced_search=False, halfauto=False, halfauto_scroll=60, slow_mode=0):
     advanced_search |= halfauto
+    pyautogui.press("left")
     pyautogui.moveTo(1, 1) # move the cursor to the top left corner to prevent interference
 
     while interrupt_event.is_set() == False:
         pyautogui.press("enter")
-        await asyncio.sleep(0.18 if slow_mode else 0.14)
+        await asyncio.sleep(0.24 if slow_mode == 2 else 0.2 if slow_mode == 1 else 0.14)
         if advanced_search:
             pyautogui.press('x')
-            await asyncio.sleep(0.18 if slow_mode else 0.14)
+            await asyncio.sleep(0.24 if slow_mode == 2 else 0.2 if slow_mode == 1 else 0.14)
         pyautogui.press("enter")
 
         if advanced_search: # advanced search takes longer to load
-            await asyncio.sleep(1)
+            await asyncio.sleep(1 if slow_mode else 0.9)
         else:
-            await asyncio.sleep(0.8 if slow_mode else 0.72)
+            await asyncio.sleep(0.82 if slow_mode == 2 else 0.8 if slow_mode == 1 else 0.7)
 
         if halfauto:
-            pyautogui.press("down", presses=halfauto_scroll, interval=0.01) # scroll down to the fresh 59m auctions
+            pyautogui.press("down", presses=halfauto_scroll, interval=(0.03 if slow_mode else 0.01)) # scroll down to the fresh 59m auctions
             if await asyncio.to_thread(DetectBuyKey):
                 pyautogui.press('y')
-                await asyncio.sleep(0.1)
-                await Buyout()
+                await asyncio.sleep(0.12 if slow_mode else 0.1)
+                await Buyout(slow_mode)
         else:
             if sum(await GetPixelColor(*y_icon_location)) >= sum(color_white) * 0.75: # if search result is not empty
                 print(time.strftime("[%Y-%m-%d / %H:%M:%S] Found!"))
                 # spam the Y key
                 while True:
                     pyautogui.press('y')
+                    await asyncio.sleep(0.1)
                     if sum(await GetPixelColor(*y_icon_location)) < sum(color_white) * 0.75:
-                        await asyncio.sleep(0.12 if slow_mode else 0.1)
-                        await Buyout()
+                        if slow_mode:
+                            await asyncio.sleep(0.02)
+                        await Buyout(slow_mode)
                         break
-                    else:
-                        await asyncio.sleep(0.05)
 
         pyautogui.press("esc")
         await asyncio.sleep(0.7 if slow_mode else 0.6)
@@ -101,15 +101,6 @@ async def main():
     await asyncio.gather(Macro(interrupt_event), Stopper(interrupt_event))
 
     print("Exiting the script.")
-
-
-def IconLocationFinder(interval=0.5):
-    while True:
-        position = pyautogui.position()
-        print(f"{position} / color {pyautogui.pixel(*position)}")
-        print(f"y_icon_location {y_icon_location} / color {pyautogui.pixel(*y_icon_location)}")
-        print(f"enter_icon_location {enter_icon_location} / color {pyautogui.pixel(*enter_icon_location)}\n\n")
-        time.sleep(interval)
 
 
 if __name__ == "__main__":
