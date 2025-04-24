@@ -26,6 +26,7 @@ async def Buyout(slow_mode):
 
     await asyncio.sleep(1)
     if sum(await GetPixelColor(*left_bottom_location)) > sum(color_black):
+        print(time.strftime("[%Y-%m-%d / %H:%M:%S] Exit from the auction that has already been bought by someone else."))
         pyautogui.press("esc")
         await asyncio.sleep(0.14 if slow_mode else 0.1)
         pyautogui.press("esc")
